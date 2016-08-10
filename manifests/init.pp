@@ -63,10 +63,11 @@ class squid3 (
     content      => template($use_template),
   }
 
-  if versioncmp($::puppetversion, '3.5') >= 0 {
-    File["${config_file}"] { validate_cmd => "/usr/sbin/${service_name} -k parse -f %" }
-  }
-  else {
-    validate_cmd(template($use_template), "/usr/sbin/${service_name} -k parse -f", 'Squid service call failed')
-  }
+#  if versioncmp($::puppetversion, '3.5') >= 0 {
+#    File["${config_file}"] { validate_cmd => "/usr/sbin/${service_name} -k parse -f %" }
+#  }
+#  else {
+#    validate_cmd(template($use_template), "/usr/sbin/${service_name} -k parse -f", 'Squid service call failed')
+#  }
+
 }
