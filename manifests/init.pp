@@ -61,7 +61,13 @@ class squid3 (
     require      => Package['squid3_package'],
     notify       => Service['squid3_service'],
     content      => template($use_template),
-    validate_cmd => "/usr/sbin/${service_name} -k parse -f %",
+  }
+
+  if versioncmp($::puppetversion, '3.5') >= 0 {
+    File["${config_file}"] { validate_cmd => "/usr/sbin/${service_name} -k parse -f %" }
+  }
+  else {
+    validate_cmd(template($use_template), "/usr/sbin/${service_name} -k parse -f", 'Squid service call failed')
   }
 
 }
